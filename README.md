@@ -22,4 +22,4 @@ Tested on Ubuntu 20.04 LTS,
 Style guidelines PEP 8 (version 1.7) || Google Style Python Docstrings
 
 # AUTHORS
-#### Caleb Adinfono, Lynda Oluchukwu
+#### Caleb Adinfono, Marylynda Oluchukwu Ezenwanne

@@ -3,6 +3,7 @@
 
 
 import cmd
+import re
 from models import storage
 from models.base_model import BaseModel
 
@@ -130,6 +131,52 @@ class HBNBCommand(cmd.Cmd):
             arg3 = arg3.strip("'")
             setattr(obj, arg[2], arg3)
             obj.save()
+
+    def do_count(self, class_name):
+        """counts the number of instances in a class"""
+        count = 0
+        if not class_name:
+            print("** class name missing **")
+        # checks if the class_name key is in my_classes dict
+        elif class_name not in storage.my_classes.keys():
+            print("** class doesn't exist **")
+        else:
+            for key in storage.all().keys():
+                if class_name in key:
+                    count += 1
+            print(count)
+
+    def default(self, line):
+        """default action when command is not recognised"""
+        command_dict = {"destroy": self.do_destroy, "all": self.do_all,
+                        "show": self.do_show, "count": self.do_count}
+        pattern = r'(\w+)\.(\w+)\(("{0,1})([\w-]*)("{0,1})\)'
+        match = re.match(pattern, line)
+
+        if not match:
+            self.stdout.write('*** Unknown syntax: %s\n' % line)
+        elif match.group(3) != match.group(5):
+            self.stdout.write('*** Unknown syntax: %s\n' % line)
+        elif match.group(3) != '"' and match.group(4) != "":
+            self.stdout.write('*** Unknown syntax: %s\n' % line)
+        else:
+            class_name = match.group(1)
+            command = match.group(2)
+            arg1 = match.group(4)
+            if command in ["count", "all"] and arg1 != "":
+                self.stdout.write('*** Unknown syntax: %s\n' % line)
+                return
+
+            if arg1 == "":
+                instruction = "{}".format(class_name)
+            else:
+                instruction = "{} {}".format(class_name, arg1)
+
+            if command in command_dict:
+                function = command_dict[command]
+                function(instruction)
+            else:
+                self.stdout.write('*** Unknown syntax: %s\n' % line)
 
 
 if __name__ == "__main__":

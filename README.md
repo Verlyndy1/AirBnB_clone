@@ -16,6 +16,54 @@ This repository contains code to create a console for the AirBnB clone. The cons
 5. `count` displays the number of objects of a given class. ex `<class>.<count>()`
 
 
+## Installation
+
+```
+git clone https://github.com/Verlyndy1/AirBnB_clone.git
+cd AirBnB_clone
+```
+
+## Usage
+### Interactive mode
+
+```
+$ ./console.py
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  help  quit
+
+(hbnb)
+(hbnb)
+(hbnb) quit
+$
+```
+
+### Non interactive mode
+```
+$ echo "help" | ./console.py
+(hbnb)
+
+Documented commands (type help <topic>):
+========================================
+EOF  help  quit
+(hbnb)
+$
+$ cat test_help
+help
+$
+$ cat test_help | ./console.py
+(hbnb)
+
+Documented commands (type help <topic>):
+========================================
+EOF  help  quit
+(hbnb)
+$
+```
+
+
 ### Environment
 Language: Python3,
 Tested on Ubuntu 20.04 LTS,
